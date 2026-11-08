@@ -30,3 +30,4 @@ D:\CustomerVoice\CustomerVoice.Web\CustomerVoice.Infrastructure\obj\Debug\net8.0
 D:\CustomerVoice\CustomerVoice.Web\CustomerVoice.Infrastructure\obj\Debug\net8.0\CustomerVoice.Infrastructure.pdb
 D:\CustomerVoice\CustomerVoice.Web\CustomerVoice.Infrastructure\obj\Debug\net8.0\CustomerVoice.Infrastructure.genruntimeconfig.cache
 D:\CustomerVoice\CustomerVoice.Web\CustomerVoice.Infrastructure\obj\Debug\net8.0\ref\CustomerVoice.Infrastructure.dll
+D:\CustomerVoice\CustomerVoice.Web\CustomerVoice.Infrastructure\obj\Debug\net8.0\CustomerVoice.Infrastructure.sourcelink.json

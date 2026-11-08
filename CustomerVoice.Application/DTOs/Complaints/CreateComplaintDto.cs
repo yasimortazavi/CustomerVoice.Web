@@ -28,5 +28,6 @@ namespace CustomerVoice.Application.DTOs.Complaints
         public string Description { get; set; } = string.Empty;
 
         public string? SuggestedSolution { get; set; }
+        public ComplaintAttachmentDto? AttachmentData { get; set; }
     }
 }

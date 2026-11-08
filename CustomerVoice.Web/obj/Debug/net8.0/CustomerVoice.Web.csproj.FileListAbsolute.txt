@@ -581,3 +581,4 @@ D:\CustomerVoice\CustomerVoice.Web\CustomerVoice.Web\bin\Debug\net8.0\runtimes\w
 D:\CustomerVoice\CustomerVoice.Web\CustomerVoice.Web\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Drawing.Common.dll
 D:\CustomerVoice\CustomerVoice.Web\CustomerVoice.Web\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Security.Cryptography.ProtectedData.dll
 D:\CustomerVoice\CustomerVoice.Web\CustomerVoice.Web\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Windows.Extensions.dll
+D:\CustomerVoice\CustomerVoice.Web\CustomerVoice.Web\obj\Debug\net8.0\CustomerVoice.Web.sourcelink.json

@@ -10,7 +10,8 @@ using CustomerVoice.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-
+using CustomerVoice.Application.Interfaces.Files;
+using CustomerVoice.Infrastructure.Files;
 
 namespace CustomerVoice.Infrastructure.DependencyInjection
 {
@@ -31,7 +32,7 @@ namespace CustomerVoice.Infrastructure.DependencyInjection
                 ComplaintReferenceDataRepository>();
             services.AddScoped<IUnitOfWork>(provider =>
                 provider.GetRequiredService<ApplicationDbContext>());
-
+            services.AddScoped<IComplaintFileStorage, LocalComplaintFileStorage>();
             return services;
         }
     }

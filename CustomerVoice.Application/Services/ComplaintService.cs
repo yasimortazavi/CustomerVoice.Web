@@ -8,7 +8,8 @@ using CustomerVoice.Application.Interfaces.Repositories;
 using CustomerVoice.Application.Interfaces.Persistence;
 using CustomerVoice.Application.Interfaces.Services;
 using CustomerVoice.Domain.Entities;
-
+using CustomerVoice.Application.Interfaces.Files;
+using System.IO;
 
 namespace CustomerVoice.Application.Services
 {
@@ -17,15 +18,18 @@ namespace CustomerVoice.Application.Services
         private readonly IComplaintRepository _repository;
         private readonly IComplaintReferenceDataRepository _referenceDataRepository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IComplaintFileStorage _fileStorage;
 
         public ComplaintService(
             IComplaintRepository repository,
             IComplaintReferenceDataRepository referenceDataRepository,
-            IUnitOfWork unitOfWork)
+            IUnitOfWork unitOfWork,
+            IComplaintFileStorage fileStorage)
         {
             _repository = repository;
             _referenceDataRepository = referenceDataRepository;
             _unitOfWork = unitOfWork;
+            _fileStorage = fileStorage;
         }
 
         public async Task<ComplaintResultDto> CreateAsync(
@@ -59,7 +63,15 @@ namespace CustomerVoice.Application.Services
             if (activeReasons.Count != selectedIds.Count)
                 throw new InvalidOperationException(
                     "یک یا چند علت نارضایتی انتخاب‌شده معتبر یا فعال نیست.");
+            string? storedFileName = null;
 
+            if (dto.AttachmentData != null)
+            {
+                var extension = Path.GetExtension(
+                    dto.AttachmentData.OriginalFileName);
+
+                storedFileName = $"{Guid.NewGuid():N}{extension.ToLowerInvariant()}";
+            }
             var complaint = new Complaint
             {
                 FirstName = dto.FirstName,
@@ -71,6 +83,17 @@ namespace CustomerVoice.Application.Services
                 ServiceTypeId = dto.ServiceTypeId,
                 Description = dto.Description,
                 SuggestedSolution = dto.SuggestedSolution,
+                Attachment = dto.AttachmentData != null
+                            ? new ComplaintAttachment
+                            {
+                                OriginalFileName = Path.GetFileName(
+                                    dto.AttachmentData.OriginalFileName),
+                                StoredFileName = storedFileName!,
+                                ContentType = dto.AttachmentData.ContentType,
+                                FileSize = dto.AttachmentData.FileSize,
+                                UploadedAt = DateTime.UtcNow
+                            }
+                            : null,
                 TrackingCode = Guid.NewGuid()
                     .ToString("N")[..10].ToUpperInvariant(),
                 Status = "Submitted",
@@ -83,13 +106,37 @@ namespace CustomerVoice.Application.Services
                     })
                     .ToList()
             };
+            bool fileSaved = false;
 
-            await _repository.AddAsync(
-                complaint, cancellationToken);
+            try
+            {
+                if (dto.AttachmentData != null)
+                {
+                    await _fileStorage.SaveAsync(
+                        dto.AttachmentData.FileStream,
+                        storedFileName!,
+                        cancellationToken);
 
-            await _unitOfWork.SaveChangesAsync(
-                cancellationToken);
+                    fileSaved = true;
+                }
 
+                await _repository.AddAsync(
+                    complaint, cancellationToken);
+
+                await _unitOfWork.SaveChangesAsync(
+                    cancellationToken);
+            }
+            catch
+            {
+                if (fileSaved)
+                {
+                    await _fileStorage.DeleteAsync(
+                        storedFileName!,
+                        CancellationToken.None);
+                }
+
+                throw;
+            }
             return new ComplaintResultDto
             {
                 Id = complaint.Id,

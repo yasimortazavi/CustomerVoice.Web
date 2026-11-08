@@ -52,12 +52,71 @@ namespace CustomerVoice.Web.Controllers
                     error.ErrorMessage);
             }
 
+            if (model.Attachment != null &&
+                model.Attachment.Length > 0)
+            {
+                var allowedExtensions = new[]
+                 {
+                                ".pdf",
+                                ".jpg",
+                                ".jpeg",
+                                ".png"
+                            };
+
+                var extension = Path.GetExtension(
+                    model.Attachment.FileName);
+
+                if (!allowedExtensions.Contains(
+                    extension,
+                    StringComparer.OrdinalIgnoreCase))
+                {
+                    ModelState.AddModelError(
+                        nameof(model.Attachment),
+                        "فرمت فایل انتخاب ‌شده مجاز نیست.");
+                }
+
+                const long maxFileSize = 5 * 1024 * 1024;
+
+                if (model.Attachment.Length > maxFileSize)
+                {
+                    ModelState.AddModelError(
+                        nameof(model.Attachment),
+                        "حجم فایل نباید بیشتر از ۵ مگابایت باشد.");
+                }
+            }
+
             if (!ModelState.IsValid)
             {
                 await LoadReferenceDataAsync(model, cancellationToken);
                 return View(model);
             }
 
+            using var fileStream = model.Attachment?.OpenReadStream();
+
+
+            if (model.Attachment != null && fileStream != null)
+            {
+                var extension = Path.GetExtension(
+                    model.Attachment.FileName);
+
+                var contentType = extension.ToLowerInvariant() switch
+                {
+                    ".pdf" => "application/pdf",
+                    ".jpg" => "image/jpeg",
+                    ".jpeg" => "image/jpeg",
+                    ".png" => "image/png",
+                    _ => "application/octet-stream"
+                };
+
+                model.AttachmentData = new ComplaintAttachmentDto
+                {
+                    FileStream = fileStream,
+                    OriginalFileName = Path.GetFileName(
+                        model.Attachment.FileName),
+                    ContentType = contentType,
+                    FileSize = model.Attachment.Length
+                };
+            }
             try
             {
                 var result = await _complaintService.CreateAsync(

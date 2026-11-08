@@ -25,3 +25,4 @@ D:\CustomerVoice\CustomerVoice.Web\CustomerVoice.Application\obj\Debug\net8.0\Cu
 D:\CustomerVoice\CustomerVoice.Web\CustomerVoice.Application\obj\Debug\net8.0\refint\CustomerVoice.Application.dll
 D:\CustomerVoice\CustomerVoice.Web\CustomerVoice.Application\obj\Debug\net8.0\CustomerVoice.Application.pdb
 D:\CustomerVoice\CustomerVoice.Web\CustomerVoice.Application\obj\Debug\net8.0\ref\CustomerVoice.Application.dll
+D:\CustomerVoice\CustomerVoice.Web\CustomerVoice.Application\obj\Debug\net8.0\CustomerVoice.Application.sourcelink.json
