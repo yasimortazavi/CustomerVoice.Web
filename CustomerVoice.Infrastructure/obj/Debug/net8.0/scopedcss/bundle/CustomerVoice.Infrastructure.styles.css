@@ -1,0 +1,10 @@
+@import '_content/CustomerVoice.Application/CustomerVoice.Application.bundle.scp.css';
+@import '_content/CustomerVoice.Domain/CustomerVoice.Domain.bundle.scp.css';
+
+/* _content/CustomerVoice.Infrastructure/Component1.razor.rz.scp.css */
+.my-component[b-rubr4xbagi] {
+    border: 2px dashed red;
+    padding: 1em;
+    margin: 1em 0;
+    background-image: url('background.png');
+}

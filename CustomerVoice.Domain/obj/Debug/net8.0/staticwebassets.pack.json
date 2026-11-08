@@ -1,0 +1,33 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\CustomerVoice\\CustomerVoice.Web\\CustomerVoice.Domain\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\CustomerVoice.Domain.bundle.scp.css",
+      "PackagePath": "staticwebassets\\CustomerVoice.Domain.bundle.scp.css"
+    },
+    {
+      "Id": "D:\\CustomerVoice\\CustomerVoice.Web\\CustomerVoice.Domain\\wwwroot\\background.png",
+      "PackagePath": "staticwebassets\\background.png"
+    },
+    {
+      "Id": "D:\\CustomerVoice\\CustomerVoice.Web\\CustomerVoice.Domain\\wwwroot\\exampleJsInterop.js",
+      "PackagePath": "staticwebassets\\exampleJsInterop.js"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.CustomerVoice.Domain.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.CustomerVoice.Domain.props",
+      "PackagePath": "build\\CustomerVoice.Domain.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.CustomerVoice.Domain.props",
+      "PackagePath": "buildMultiTargeting\\CustomerVoice.Domain.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.CustomerVoice.Domain.props",
+      "PackagePath": "buildTransitive\\CustomerVoice.Domain.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

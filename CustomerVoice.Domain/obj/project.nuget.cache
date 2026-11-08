@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "dgSpecHash": "Vl6hVbV4XPmTEtgTYKMjFeURTF8nt1/gJ54Kd7rhL1A0+gM4kICA9Q9XOQ7vk4aU/wSzWCwR7zL2wrDc7f7bAA==",
+  "success": true,
+  "projectFilePath": "D:\\CustomerVoice\\CustomerVoice.Web\\CustomerVoice.Domain\\CustomerVoice.Domain.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\LENOVO\\.nuget\\packages\\microsoft.aspnetcore.authorization\\8.0.33\\microsoft.aspnetcore.authorization.8.0.33.nupkg.sha512",
+    "C:\\Users\\LENOVO\\.nuget\\packages\\microsoft.aspnetcore.components\\8.0.33\\microsoft.aspnetcore.components.8.0.33.nupkg.sha512",
+    "C:\\Users\\LENOVO\\.nuget\\packages\\microsoft.aspnetcore.components.analyzers\\8.0.33\\microsoft.aspnetcore.components.analyzers.8.0.33.nupkg.sha512",
+    "C:\\Users\\LENOVO\\.nuget\\packages\\microsoft.aspnetcore.components.forms\\8.0.33\\microsoft.aspnetcore.components.forms.8.0.33.nupkg.sha512",
+    "C:\\Users\\LENOVO\\.nuget\\packages\\microsoft.aspnetcore.components.web\\8.0.33\\microsoft.aspnetcore.components.web.8.0.33.nupkg.sha512",
+    "C:\\Users\\LENOVO\\.nuget\\packages\\microsoft.aspnetcore.metadata\\8.0.33\\microsoft.aspnetcore.metadata.8.0.33.nupkg.sha512",
+    "C:\\Users\\LENOVO\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\8.0.1\\microsoft.extensions.dependencyinjection.8.0.1.nupkg.sha512",
+    "C:\\Users\\LENOVO\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.2\\microsoft.extensions.dependencyinjection.abstractions.8.0.2.nupkg.sha512",
+    "C:\\Users\\LENOVO\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\8.0.3\\microsoft.extensions.logging.abstractions.8.0.3.nupkg.sha512",
+    "C:\\Users\\LENOVO\\.nuget\\packages\\microsoft.extensions.options\\8.0.2\\microsoft.extensions.options.8.0.2.nupkg.sha512",
+    "C:\\Users\\LENOVO\\.nuget\\packages\\microsoft.extensions.primitives\\8.0.0\\microsoft.extensions.primitives.8.0.0.nupkg.sha512",
+    "C:\\Users\\LENOVO\\.nuget\\packages\\microsoft.jsinterop\\8.0.33\\microsoft.jsinterop.8.0.33.nupkg.sha512",
+    "C:\\Users\\LENOVO\\.nuget\\packages\\system.io.pipelines\\8.0.0\\system.io.pipelines.8.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

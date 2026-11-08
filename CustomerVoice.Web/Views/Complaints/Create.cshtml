@@ -1,0 +1,90 @@
+﻿@model CustomerVoice.Web.ViewModels.Complaints.ComplaintCreateViewModel
+
+@{
+    ViewData["Title"] = "ثبت شکایت";
+}
+
+<div class="container mt-5" dir="rtl">
+    <h2 class="mb-4">ثبت شکایت</h2>
+
+    <form asp-action="Create" method="post">
+        <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label asp-for="FirstName" class="form-label">نام</label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label asp-for="LastName" class="form-label">نام خانوادگی</label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label asp-for="MobileNumber" class="form-label">شماره موبایل</label>
+                <input asp-for="MobileNumber" class="form-control" />
+                <span asp-validation-for="MobileNumber" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label asp-for="LandlineNumber" class="form-label">تلفن ثابت</label>
+                <input asp-for="LandlineNumber" class="form-control" />
+                <span asp-validation-for="LandlineNumber" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label asp-for="Email" class="form-label">ایمیل</label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label asp-for="ProjectId" class="form-label">عنوان پروژه</label>
+                <select asp-for="ProjectId" asp-items="Model.Projects" class="form-select">
+                    <option value="">انتخاب پروژه</option>
+                </select>
+                <span asp-validation-for="ProjectId" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label asp-for="ServiceTypeId" class="form-label">نوع خدمات دریافت‌شده</label>
+                <select asp-for="ServiceTypeId" asp-items="Model.ServiceTypes" class="form-select">
+                    <option value="">انتخاب نوع خدمات</option>
+                </select>
+                <span asp-validation-for="ServiceTypeId" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label asp-for="DissatisfactionReasonIds" class="form-label">علل نارضایتی</label>
+                <select asp-for="DissatisfactionReasonIds"
+                        asp-items="Model.DissatisfactionReasons"
+                        class="form-select"
+                        multiple>
+                </select>
+                <span asp-validation-for="DissatisfactionReasonIds" class="text-danger"></span>
+                <small class="text-muted">برای انتخاب چند مورد، کلید Ctrl را نگه دارید.</small>
+            </div>
+
+            <div class="col-12 mb-3">
+                <label asp-for="Description" class="form-label">شرح شکایت</label>
+                <textarea asp-for="Description" class="form-control" rows="5"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="col-12 mb-3">
+                <label asp-for="SuggestedSolution" class="form-label">راه‌حل پیشنهادی</label>
+                <textarea asp-for="SuggestedSolution" class="form-control" rows="4"></textarea>
+                <span asp-validation-for="SuggestedSolution" class="text-danger"></span>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">ثبت شکایت</button>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
