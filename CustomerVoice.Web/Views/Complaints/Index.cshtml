@@ -1,0 +1,80 @@
+﻿@model CustomerVoice.Web.Models.Complaints.ComplaintListViewModel
+
+@{
+    ViewData["Title"] = "فهرست شکایت‌ها";
+}
+
+<h2>فهرست شکایت‌ها</h2>
+
+@if (Model.Complaints.Any())
+{
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>کد رهگیری</th>
+                    <th>نام و نام خانوادگی</th>
+                    <th>عنوان پروژه</th>
+                    <th>نوع خدمات</th>
+                    <th>شرح شکایت</th>
+                    <th>راه‌حل پیشنهادی</th>
+                     <th>مستندات</th>
+                    <th>وضعیت</th>
+                    <th>تاریخ ثبت</th>
+                    <th>حذف</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var complaint in Model.Complaints)
+                {
+                    <tr>
+                        <td>@complaint.TrackingCode</td>
+                        <td>@complaint.FirstName @complaint.LastName</td>
+                        <td>@complaint.ProjectTitle</td>
+                        <td>@complaint.ServiceTypeTitle</td>
+                        <td>@complaint.Description</td>
+                        <td>@(complaint.SuggestedSolution ?? "—")</td>
+                        <td>
+                            @if (complaint.HasAttachment)
+                            {
+                                <a asp-controller="Complaints"
+                                   asp-action="DownloadAttachment"
+                                   asp-route-complaintId="@complaint.Id"
+                                   class="btn btn-sm btn-primary">
+                                    دانلود مستندات
+                                </a>
+                            }
+                            else
+                            {
+                                <span>بدون پیوست</span>
+                            }
+                        </td>
+                        <td>@complaint.Status</td>
+                        <td>@complaint.CreatedAt.ToString("yyyy/MM/dd HH:mm")</td>
+                        <td>
+                            <form asp-controller="Complaints"
+                                  asp-action="Delete"
+                                  method="post"
+                                  onsubmit="return confirm('آیا از حذف این شکایت مطمئن هستید؟');">
+
+                                @Html.AntiForgeryToken()
+
+                                <input type="hidden"
+                                       name="complaintId"
+                                       value="@complaint.Id" />
+
+                                <button type="submit" class="btn btn-sm btn-danger">
+                                    حذف
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <p>هنوز شکایتی ثبت نشده است.</p>
+}

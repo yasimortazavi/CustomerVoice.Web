@@ -5,6 +5,9 @@ using CustomerVoice.Web.ViewModels.Complaints;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using CustomerVoice.Web.Models.Complaints;
+
+
 
 namespace CustomerVoice.Web.Controllers
 {
@@ -144,6 +147,55 @@ namespace CustomerVoice.Web.Controllers
             return View();
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Index(
+    CancellationToken cancellationToken)
+        {
+            var complaints = await _complaintService.GetAllAsync(
+                cancellationToken);
+
+            var model = new ComplaintListViewModel
+            {
+                Complaints = complaints
+            };
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> DownloadAttachment(
+    int complaintId,
+    CancellationToken cancellationToken)
+        {
+            var attachment =
+                await _complaintService.GetAttachmentForDownloadAsync(
+                    complaintId,
+                    cancellationToken);
+
+            if (attachment == null)
+                return NotFound();
+
+            return File(
+                attachment.FileStream,
+                attachment.ContentType,
+                Path.GetFileName(attachment.OriginalFileName));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(
+            int complaintId,
+            CancellationToken cancellationToken)
+        {
+            var deleted = await _complaintService.DeleteAsync(
+                complaintId,
+                cancellationToken);
+
+            if (!deleted)
+                return NotFound();
+
+            return RedirectToAction(nameof(Index));
+        }
         private async Task LoadReferenceDataAsync(
             ComplaintCreateViewModel model,
             CancellationToken cancellationToken)
@@ -179,5 +231,6 @@ namespace CustomerVoice.Web.Controllers
                 Selected = model.DissatisfactionReasonIds.Contains(x.Id)
             });
         }
+
     }
 }

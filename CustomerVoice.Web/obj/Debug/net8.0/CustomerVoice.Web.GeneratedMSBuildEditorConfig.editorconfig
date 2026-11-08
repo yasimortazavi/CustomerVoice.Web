@@ -30,6 +30,10 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGxhaW50c1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/CustomerVoice/CustomerVoice.Web/CustomerVoice.Web/Views/Complaints/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGxhaW50c1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/CustomerVoice/CustomerVoice.Web/CustomerVoice.Web/Views/Complaints/Success.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGxhaW50c1xTdWNjZXNzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

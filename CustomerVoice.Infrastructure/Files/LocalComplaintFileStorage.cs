@@ -40,6 +40,34 @@ namespace CustomerVoice.Infrastructure.Files
                 outputStream,
                 cancellationToken);
         }
+        public Task<Stream?> OpenReadAsync(
+    string storedFileName,
+    CancellationToken cancellationToken = default)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            var safeFileName = Path.GetFileName(storedFileName);
+
+            var filePath = Path.Combine(
+                _storagePath,
+                safeFileName);
+
+            if (!File.Exists(filePath))
+            {
+                return Task.FromResult<Stream?>(null);
+            }
+
+            Stream stream = new FileStream(
+                filePath,
+                FileMode.Open,
+                FileAccess.Read,
+                FileShare.Read,
+                bufferSize: 4096,
+                useAsync: true);
+
+            return Task.FromResult<Stream?>(stream);
+        }
+
         public Task DeleteAsync(
     string storedFileName,
     CancellationToken cancellationToken = default)

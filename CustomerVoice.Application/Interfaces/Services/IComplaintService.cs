@@ -12,5 +12,16 @@ namespace CustomerVoice.Application.Interfaces.Services
         Task<ComplaintResultDto> CreateAsync(
             CreateComplaintDto dto,
             CancellationToken cancellationToken = default);
+
+        Task<List<ComplaintListItemDto>> GetAllAsync(
+    CancellationToken cancellationToken = default);
+
+        Task<ComplaintAttachmentDownloadDto?> GetAttachmentForDownloadAsync(
+    int complaintId,
+    CancellationToken cancellationToken = default);
+        Task<bool> DeleteAsync(
+    int complaintId,
+    CancellationToken cancellationToken = default);
+
     }
 }

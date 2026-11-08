@@ -144,5 +144,85 @@ namespace CustomerVoice.Application.Services
                 CreatedAt = complaint.CreatedAt
             };
         }
+
+
+        public async Task<List<ComplaintListItemDto>> GetAllAsync(
+    CancellationToken cancellationToken = default)
+        {
+            var complaints = await _repository.GetAllAsync(
+                cancellationToken);
+
+            return complaints.Select(x => new ComplaintListItemDto
+            {
+                Id = x.Id,
+                TrackingCode = x.TrackingCode,
+                FirstName = x.FirstName,
+                LastName = x.LastName,
+                ProjectTitle = x.Project.Title,
+                ServiceTypeTitle = x.ServiceType.Title,
+                Status = x.Status,
+                CreatedAt = x.CreatedAt,
+                Description = x.Description,
+                SuggestedSolution = x.SuggestedSolution,
+                HasAttachment = x.Attachment != null
+            }).ToList();
+        }
+
+        public async Task<ComplaintAttachmentDownloadDto?>
+     GetAttachmentForDownloadAsync(
+         int complaintId,
+         CancellationToken cancellationToken = default)
+        {
+            var attachment =
+                await _repository.GetAttachmentByComplaintIdAsync(
+                    complaintId,
+                    cancellationToken);
+
+            if (attachment == null)
+                return null;
+
+            var fileStream = await _fileStorage.OpenReadAsync(
+                attachment.StoredFileName,
+                cancellationToken);
+
+            if (fileStream == null)
+                return null;
+
+            return new ComplaintAttachmentDownloadDto
+            {
+                FileStream = fileStream,
+                OriginalFileName = attachment.OriginalFileName,
+                ContentType = attachment.ContentType
+            };
+        }
+        public async Task<bool> DeleteAsync(
+    int complaintId,
+    CancellationToken cancellationToken = default)
+        {
+            var complaint = await _repository.GetByIdAsync(
+                complaintId,
+                cancellationToken);
+
+            if (complaint == null)
+                return false;
+
+            var storedFileName = complaint.Attachment?.StoredFileName;
+
+            await _repository.DeleteAsync(
+                complaint,
+                cancellationToken);
+
+            await _unitOfWork.SaveChangesAsync(
+                cancellationToken);
+
+            if (!string.IsNullOrWhiteSpace(storedFileName))
+            {
+                await _fileStorage.DeleteAsync(
+                    storedFileName,
+                    CancellationToken.None);
+            }
+
+            return true;
+        }
     }
 }
