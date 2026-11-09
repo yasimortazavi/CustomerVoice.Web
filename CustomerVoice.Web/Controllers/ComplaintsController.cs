@@ -16,15 +16,17 @@ namespace CustomerVoice.Web.Controllers
         private readonly IComplaintService _complaintService;
         private readonly IComplaintReferenceDataRepository _referenceDataRepository;
         private readonly IValidator<CreateComplaintDto> _validator;
-
+        private readonly ILogger<ComplaintsController> _logger;
         public ComplaintsController(
             IComplaintService complaintService,
             IComplaintReferenceDataRepository referenceDataRepository,
-            IValidator<CreateComplaintDto> validator)
+            IValidator<CreateComplaintDto> validator,
+            ILogger<ComplaintsController> logger)
         {
             _complaintService = complaintService;
             _referenceDataRepository = referenceDataRepository;
             _validator = validator;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -132,7 +134,25 @@ namespace CustomerVoice.Web.Controllers
             }
             catch (InvalidOperationException ex)
             {
+                _logger.LogWarning(
+                    ex,
+                    "ثبت شکایت به دلیل نامعتبر بودن عملیات انجام نشد.");
+
                 ModelState.AddModelError(string.Empty, ex.Message);
+
+                await LoadReferenceDataAsync(model, cancellationToken);
+
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(
+                    ex,
+                    "خطای پیش‌بینی‌نشده هنگام ثبت شکایت رخ داد.");
+
+                ModelState.AddModelError(
+                    string.Empty,
+                    "در ثبت شکایت خطایی رخ داد. لطفاً دوباره تلاش کنید.");
 
                 await LoadReferenceDataAsync(model, cancellationToken);
 

@@ -233,17 +233,25 @@
                             <th>حذف</th>
                         </tr>
                     </thead>
+
                     <tbody>
                         @foreach (var complaint in Model.Result.Items)
                         {
                             var persianCalendar = new System.Globalization.PersianCalendar();
+
                             <tr>
                                 <td class="tracking-code">@complaint.TrackingCode</td>
+
                                 <td>@complaint.FirstName @complaint.LastName</td>
+
                                 <td>@complaint.ProjectTitle</td>
+
                                 <td>@complaint.ServiceTypeTitle</td>
+
                                 <td>@complaint.Description</td>
+
                                 <td>@(complaint.SuggestedSolution ?? "—")</td>
+
                                 <td>
                                     @if (complaint.HasAttachment)
                                     {
@@ -259,12 +267,17 @@
                                         <span>بدون پیوست</span>
                                     }
                                 </td>
-                                <td><span class="status-badge">@complaint.Status</span></td>
-                                <td class="text-nowrap">
-                                <td class="text-nowrap">
-                                        @($"{persianCalendar.GetYear(complaint.CreatedAt):0000}/{persianCalendar.GetMonth(complaint.CreatedAt):00}/{persianCalendar.GetDayOfMonth(complaint.CreatedAt):00} {complaint.CreatedAt:HH:mm}")
+
+                                <td>
+                                    <span class="status-badge">@complaint.Status</span>
                                 </td>
+
+                                <!-- تاریخ ثبت -->
+                                <td class="text-nowrap">
+                                    @($"{persianCalendar.GetYear(complaint.CreatedAt):0000}/{persianCalendar.GetMonth(complaint.CreatedAt):00}/{persianCalendar.GetDayOfMonth(complaint.CreatedAt):00} {complaint.CreatedAt:HH:mm}")
                                 </td>
+
+                                <!-- حذف -->
                                 <td>
                                     <form asp-controller="Complaints"
                                           asp-action="Delete"
@@ -279,6 +292,7 @@
 
                                         <button type="submit"
                                                 class="btn btn-sm btn-danger btn-delete">
+                                            <i class="bi bi-trash"></i>
                                             حذف
                                         </button>
                                     </form>
@@ -286,6 +300,7 @@
                             </tr>
                         }
                     </tbody>
+
                 </table>
             </div>
         }
