@@ -149,15 +149,44 @@ namespace CustomerVoice.Web.Controllers
 
         [HttpGet]
         public async Task<IActionResult> Index(
-    CancellationToken cancellationToken)
+           ComplaintSearchViewModel model,
+           CancellationToken cancellationToken)
         {
-            var complaints = await _complaintService.GetAllAsync(
+            model.PageNumber = Math.Max(1, model.PageNumber);
+            model.PageSize = Math.Clamp(model.PageSize, 1, 100);
+
+            var result = await _complaintService.GetPagedAsync(
+                model.Search,
+                model.ProjectId,
+                model.ServiceTypeId,
+                model.Status,
+                model.FromDate,
+                model.ToDate,
+                model.PageNumber,
+                model.PageSize,
                 cancellationToken);
 
-            var model = new ComplaintListViewModel
+            model.Result = result;
+
+            var projects =
+                await _referenceDataRepository.GetActiveProjectsAsync(
+                    cancellationToken);
+
+            var serviceTypes =
+                await _referenceDataRepository.GetActiveServiceTypesAsync(
+                    cancellationToken);
+
+            model.Projects = projects.Select(x => new SelectListItem
             {
-                Complaints = complaints
-            };
+                Value = x.Id.ToString(),
+                Text = x.Title
+            }).ToList();
+
+            model.ServiceTypes = serviceTypes.Select(x => new SelectListItem
+            {
+                Value = x.Id.ToString(),
+                Text = x.Title
+            }).ToList();
 
             return View(model);
         }

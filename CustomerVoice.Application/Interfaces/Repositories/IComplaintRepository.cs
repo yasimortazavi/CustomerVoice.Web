@@ -15,6 +15,18 @@ namespace CustomerVoice.Application.Interfaces.Repositories
         Task<List<Complaint>> GetAllAsync(
     CancellationToken cancellationToken = default);
 
+        Task<(List<Complaint> Items, int TotalCount)> GetPagedAsync(
+            string? search,
+            int? projectId,
+            int? serviceTypeId,
+            string? status,
+            DateTime? fromDate,
+            DateTime? toDate,
+            int pageNumber,
+            int pageSize,
+            CancellationToken cancellationToken = default);
+
+
         Task<ComplaintAttachment?> GetAttachmentByComplaintIdAsync(
     int complaintId,
     CancellationToken cancellationToken = default);

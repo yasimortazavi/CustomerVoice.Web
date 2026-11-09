@@ -38,7 +38,60 @@ namespace CustomerVoice.Infrastructure.Repositories
                 .OrderByDescending(x => x.CreatedAt)
                 .ToListAsync(cancellationToken);
         }
+        public async Task<(List<Complaint> Items, int TotalCount)> GetPagedAsync(
+                        string? search,
+                        int? projectId,
+                        int? serviceTypeId,
+                        string? status,
+                        DateTime? fromDate,
+                        DateTime? toDate,
+                        int pageNumber,
+                        int pageSize,
+                        CancellationToken cancellationToken = default)
+        {
+            var query = _context.Complaints
+                .AsNoTracking()
+                .Include(x => x.Project)
+                .Include(x => x.ServiceType)
+                .Include(x => x.Attachment)
+                .AsQueryable();
 
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                search = search.Trim();
+
+                query = query.Where(x =>
+                    x.TrackingCode.Contains(search) ||
+                    x.FirstName.Contains(search) ||
+                    x.LastName.Contains(search) ||
+                    x.MobileNumber.Contains(search));
+            }
+
+            if (projectId.HasValue)
+                query = query.Where(x => x.ProjectId == projectId.Value);
+
+            if (serviceTypeId.HasValue)
+                query = query.Where(x => x.ServiceTypeId == serviceTypeId.Value);
+
+            if (!string.IsNullOrWhiteSpace(status))
+                query = query.Where(x => x.Status == status);
+
+            if (fromDate.HasValue)
+                query = query.Where(x => x.CreatedAt >= fromDate.Value);
+
+            if (toDate.HasValue)
+                query = query.Where(x => x.CreatedAt < toDate.Value.AddDays(1));
+
+            var totalCount = await query.CountAsync(cancellationToken);
+
+            var items = await query
+                .OrderByDescending(x => x.CreatedAt)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync(cancellationToken);
+
+            return (items, totalCount);
+        }
         public async Task<ComplaintAttachment?> GetAttachmentByComplaintIdAsync(
     int complaintId,
     CancellationToken cancellationToken = default)

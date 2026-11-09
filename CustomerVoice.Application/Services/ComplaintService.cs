@@ -168,10 +168,58 @@ namespace CustomerVoice.Application.Services
             }).ToList();
         }
 
+        public async Task<ComplaintPagedResultDto> GetPagedAsync(
+                        string? search,
+                        int? projectId,
+                        int? serviceTypeId,
+                        string? status,
+                        DateTime? fromDate,
+                        DateTime? toDate,
+                        int pageNumber,
+                        int pageSize,
+                        CancellationToken cancellationToken = default)
+        {
+            pageNumber = Math.Max(1, pageNumber);
+            pageSize = Math.Clamp(pageSize, 1, 100);
+
+            var result = await _repository.GetPagedAsync(
+                search,
+                projectId,
+                serviceTypeId,
+                status,
+                fromDate,
+                toDate,
+                pageNumber,
+                pageSize,
+                cancellationToken);
+
+            return new ComplaintPagedResultDto
+            {
+                Items = result.Items.Select(x => new ComplaintListItemDto
+                {
+                    Id = x.Id,
+                    TrackingCode = x.TrackingCode,
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
+                    ProjectTitle = x.Project.Title,
+                    ServiceTypeTitle = x.ServiceType.Title,
+                    Description = x.Description,
+                    SuggestedSolution = x.SuggestedSolution,
+                    HasAttachment = x.Attachment != null,
+                    Status = x.Status,
+                    CreatedAt = x.CreatedAt
+                }).ToList(),
+
+                TotalCount = result.TotalCount,
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            };
+        }
+
         public async Task<ComplaintAttachmentDownloadDto?>
-     GetAttachmentForDownloadAsync(
-         int complaintId,
-         CancellationToken cancellationToken = default)
+                  GetAttachmentForDownloadAsync(
+                         int complaintId,
+                         CancellationToken cancellationToken = default) 
         {
             var attachment =
                 await _repository.GetAttachmentByComplaintIdAsync(
