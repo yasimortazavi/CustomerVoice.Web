@@ -4,99 +4,275 @@
     ViewData["Title"] = "ثبت شکایت";
 }
 
-<div class="container mt-5" dir="rtl">
-    <h2 class="mb-4 text-end">ثبت شکایت</h2>
+<style>
+    .complaint-create-page {
+        direction: rtl;
+        text-align: right;
+        padding: 35px 12px;
+        color: #1e293b;
+    }
 
-    <form asp-action="Create" method="post" enctype="multipart/form-data" dir="rtl" class="text-end">
-        <div asp-validation-summary="All" class="text-danger mb-3"></div>
+    .complaint-header {
+        margin-bottom: 25px;
+    }
 
-        <div class="row">
-            <div class="col-md-6 mb-3">
-                <label asp-for="FirstName" class="form-label">نام</label>
-                <input asp-for="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
+        .complaint-header h2 {
+            font-weight: 800;
+            color: #172554;
+            margin-bottom: 8px;
+        }
+
+        .complaint-header p {
+            color: #64748b;
+            margin: 0;
+        }
+
+    .complaint-card {
+        background: #fff;
+        border: 1px solid #e2e8f0;
+        border-radius: 18px;
+        padding: 30px;
+        box-shadow: 0 6px 24px rgba(15, 23, 42, .06);
+    }
+
+    .form-section {
+        margin-bottom: 28px;
+    }
+
+    .form-section-title {
+        font-size: 16px;
+        font-weight: 750;
+        color: #1e40af;
+        padding-bottom: 12px;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+    .complaint-create-page .form-label {
+        display: block;
+        font-weight: 650;
+        font-size: 14px;
+        color: #334155;
+        margin-bottom: 9px;
+        text-align: right;
+    }
+
+    .complaint-create-page .form-control,
+    .complaint-create-page .form-select {
+        min-height: 46px;
+        border: 1px solid #cbd5e1;
+        border-radius: 10px;
+        padding: 10px 13px;
+        text-align: right;
+        direction: rtl;
+        background-color: #fff;
+    }
+
+    .complaint-create-page textarea.form-control {
+        min-height: auto;
+        line-height: 1.9;
+        resize: vertical;
+    }
+
+    .complaint-create-page .form-control:focus,
+    .complaint-create-page .form-select:focus {
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, .12);
+    }
+
+    .complaint-create-page input[type="file"] {
+        direction: rtl;
+        padding: 8px;
+    }
+
+    .field-hint {
+        display: block;
+        color: #64748b;
+        font-size: 12px;
+        margin-top: 7px;
+    }
+
+    .complaint-create-page .text-danger {
+        display: block;
+        font-size: 12px;
+        margin-top: 6px;
+    }
+
+    .complaint-actions {
+        display: flex;
+        justify-content: flex-start;
+        gap: 10px;
+        padding-top: 22px;
+        border-top: 1px solid #e2e8f0;
+    }
+
+    .btn-submit-complaint {
+        background: #2563eb;
+        color: #fff;
+        border: 0;
+        border-radius: 10px;
+        padding: 11px 30px;
+        font-weight: 700;
+    }
+
+        .btn-submit-complaint:hover {
+            background: #1d4ed8;
+            color: #fff;
+        }
+
+    .validation-summary:empty,
+    .validation-summary-valid {
+        display: none;
+    }
+
+    @@media (max-width: 576px) {
+        .complaint-card {
+            padding: 20px 15px;
+        }
+
+        .complaint-create-page {
+            padding: 20px 5px;
+        }
+    }
+    }
+</style>
+
+<div class="container complaint-create-page">
+
+    <div class="complaint-header">
+        <h2>ثبت شکایت</h2>
+        <p>لطفاً اطلاعات زیر را با دقت تکمیل کنید.</p>
+    </div>
+
+    <div class="complaint-card">
+
+        <form asp-action="Create"
+              method="post"
+              enctype="multipart/form-data">
+
+            <div asp-validation-summary="All"
+                 class="alert alert-danger mb-3 validation-summary"
+                 role="alert"></div>
+
+            <div class="form-section">
+                <h5 class="form-section-title">اطلاعات تماس و مشخصات</h5>
+
+                <div class="row g-4">
+
+                    <div class="col-md-6">
+                        <label asp-for="FirstName" class="form-label">نام</label>
+                        <input asp-for="FirstName" class="form-control" />
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="LastName" class="form-label">نام خانوادگی</label>
+                        <input asp-for="LastName" class="form-control" />
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="MobileNumber" class="form-label">شماره موبایل</label>
+                        <input asp-for="MobileNumber" class="form-control" />
+                        <span asp-validation-for="MobileNumber" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="LandlineNumber" class="form-label">تلفن ثابت</label>
+                        <input asp-for="LandlineNumber" class="form-control" />
+                        <span asp-validation-for="LandlineNumber" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="Email" class="form-label">ایمیل</label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                </div>
             </div>
 
-            <div class="col-md-6 mb-3">
-                <label asp-for="LastName" class="form-label">نام خانوادگی</label>
-                <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
+            <div class="form-section">
+                <h5 class="form-section-title">اطلاعات پروژه و خدمات</h5>
+
+                <div class="row g-4">
+
+                    <div class="col-md-6">
+                        <label asp-for="ProjectId" class="form-label">عنوان پروژه</label>
+                        <select asp-for="ProjectId"
+                                asp-items="Model.Projects"
+                                class="form-select">
+                            <option value="">انتخاب پروژه</option>
+                        </select>
+                        <span asp-validation-for="ProjectId" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="ServiceTypeId" class="form-label">نوع خدمات دریافت‌شده</label>
+                        <select asp-for="ServiceTypeId"
+                                asp-items="Model.ServiceTypes"
+                                class="form-select">
+                            <option value="">انتخاب نوع خدمات</option>
+                        </select>
+                        <span asp-validation-for="ServiceTypeId" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="DissatisfactionReasonIds" class="form-label">علل نارضایتی</label>
+                        <select asp-for="DissatisfactionReasonIds"
+                                asp-items="Model.DissatisfactionReasons"
+                                class="form-select"
+                                multiple
+                                size="5">
+                        </select>
+                        <span asp-validation-for="DissatisfactionReasonIds" class="text-danger"></span>
+                        <small class="field-hint">برای انتخاب چند مورد، کلید Ctrl را نگه دارید.</small>
+                    </div>
+
+                </div>
             </div>
 
-            <div class="col-md-6 mb-3">
-                <label asp-for="MobileNumber" class="form-label">شماره موبایل</label>
-                <input asp-for="MobileNumber" class="form-control" />
-                <span asp-validation-for="MobileNumber" class="text-danger"></span>
+            <div class="form-section">
+                <h5 class="form-section-title">شرح شکایت و مستندات</h5>
+
+                <div class="row g-4">
+
+                    <div class="col-12">
+                        <label asp-for="Description" class="form-label">شرح شکایت</label>
+                        <textarea asp-for="Description"
+                                  class="form-control"
+                                  rows="5"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-12">
+                        <label asp-for="SuggestedSolution" class="form-label">راه‌حل پیشنهادی</label>
+                        <textarea asp-for="SuggestedSolution"
+                                  class="form-control"
+                                  rows="4"></textarea>
+                        <span asp-validation-for="SuggestedSolution" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-12">
+                        <label asp-for="Attachment" class="form-label">شواهد قابل ارائه</label>
+                        <input asp-for="Attachment"
+                               type="file"
+                               class="form-control" />
+                        <span asp-validation-for="Attachment" class="text-danger"></span>
+                        <small class="field-hint">امکان انتخاب یک فایل با فرمت PDF، JPG، JPEG یا PNG وجود دارد. حداکثر حجم فایل ۵ مگابایت است.</small>
+                    </div>
+
+                </div>
             </div>
 
-            <div class="col-md-6 mb-3">
-                <label asp-for="LandlineNumber" class="form-label">تلفن ثابت</label>
-                <input asp-for="LandlineNumber" class="form-control" />
-                <span asp-validation-for="LandlineNumber" class="text-danger"></span>
+            <div class="complaint-actions">
+                <button type="submit" class="btn btn-submit-complaint">
+                    ثبت شکایت
+                </button>
             </div>
 
-            <div class="col-md-6 mb-3">
-                <label asp-for="Email" class="form-label">ایمیل</label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-
-            <div class="col-md-6 mb-3">
-                <label asp-for="ProjectId" class="form-label">عنوان پروژه</label>
-                <select asp-for="ProjectId" asp-items="Model.Projects" class="form-select">
-                    <option value="">انتخاب پروژه</option>
-                </select>
-                <span asp-validation-for="ProjectId" class="text-danger"></span>
-            </div>
-
-            <div class="col-md-6 mb-3">
-                <label asp-for="ServiceTypeId" class="form-label">نوع خدمات دریافت ‌شده</label>
-                <select asp-for="ServiceTypeId" asp-items="Model.ServiceTypes" class="form-select">
-                    <option value="">انتخاب نوع خدمات</option>
-                </select>
-                <span asp-validation-for="ServiceTypeId" class="text-danger"></span>
-            </div>
-
-            <div class="col-md-6 mb-3">
-                <label asp-for="DissatisfactionReasonIds" class="form-label">علل نارضایتی</label>
-                <select asp-for="DissatisfactionReasonIds"
-                        asp-items="Model.DissatisfactionReasons"
-                        class="form-select"
-                        multiple>
-                </select>
-                <span asp-validation-for="DissatisfactionReasonIds" class="text-danger"></span>
-                <small class="text-muted">برای انتخاب چند مورد، کلید Ctrl را نگه دارید.</small>
-            </div>
-
-            <div class="col-12 mb-3">
-                <label asp-for="Description" class="form-label">شرح شکایت</label>
-                <textarea asp-for="Description" class="form-control" rows="5"></textarea>
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-
-            <div class="col-12 mb-3">
-                <label asp-for="SuggestedSolution" class="form-label">راه‌حل پیشنهادی</label>
-                <textarea asp-for="SuggestedSolution" class="form-control" rows="4"></textarea>
-                <span asp-validation-for="SuggestedSolution" class="text-danger"></span>
-            </div>
-
-            <div class="col-12 mb-3">
-                <label asp-for="Attachment" class="form-label">
-                    شواهد قابل ارائه
-                </label>
-                <input asp-for="Attachment"
-                       type="file"
-                       class="form-control" />
-                <span asp-validation-for="Attachment"
-                      class="text-danger"></span>
-                <small class="text-muted">
-                    امکان انتخاب یک فایل وجود دارد.
-                </small>
-            </div>
-        </div>
-
-        <button type="submit" class="btn btn-primary">ثبت شکایت</button>
-    </form>
+        </form>
+    </div>
 </div>
 
 @section Scripts {
