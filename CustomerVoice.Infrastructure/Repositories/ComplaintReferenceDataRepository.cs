@@ -3,16 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using CustomerVoice.Application.Interfaces.Repositories;
 using CustomerVoice.Domain.Entities;
 using CustomerVoice.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
-using CustomerVoice.Application.Interfaces.Repositories;
-using CustomerVoice.Domain.Entities;
-using CustomerVoice.Infrastructure.Persistence;
-using Microsoft.EntityFrameworkCore;
+
 
 namespace CustomerVoice.Infrastructure.Repositories
 {

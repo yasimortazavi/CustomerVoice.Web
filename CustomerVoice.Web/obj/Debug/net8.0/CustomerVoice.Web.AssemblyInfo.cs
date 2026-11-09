@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CustomerVoice.Web")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2f879e7497dace473c9c7aaeec49997543f8c811")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7b46e44e06c6aa89bf5f1e314e27c4af1e459b68")]
 [assembly: System.Reflection.AssemblyProductAttribute("CustomerVoice.Web")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CustomerVoice.Web")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

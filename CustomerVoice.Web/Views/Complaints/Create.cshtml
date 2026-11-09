@@ -133,7 +133,7 @@
         .complaint-create-page {
             padding: 20px 5px;
         }
-    }
+    
     }
 </style>
 
@@ -179,13 +179,23 @@
 
                     <div class="col-md-6">
                         <label asp-for="LandlineNumber" class="form-label">تلفن ثابت</label>
-                        <input asp-for="LandlineNumber" class="form-control" />
+                        <input asp-for="LandlineNumber"
+                               class="form-control"
+                               dir="ltr"
+                               inputmode="tel"
+                               pattern="[0-9+\-()\s]*"
+                               title="فقط اعداد انگلیسی و علائم مجاز وارد کنید." />
                         <span asp-validation-for="LandlineNumber" class="text-danger"></span>
                     </div>
 
                     <div class="col-md-6">
                         <label asp-for="Email" class="form-label">ایمیل</label>
-                        <input asp-for="Email" class="form-control" />
+                        <input asp-for="Email"
+                               type="email"
+                               class="form-control"
+                               dir="ltr"
+                               pattern="[A-Za-z0-9._%+\-]+@@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}"
+                               title="ایمیل را با حروف انگلیسی وارد کنید." />
                         <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
 
@@ -277,4 +287,30 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        function normalizeDigits(value) {
+            return value
+                .replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d))
+                .replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d));
+        }
+
+        const mobileInput = document.getElementById('MobileNumber');
+        const landlineInput = document.getElementById('LandlineNumber');
+
+        function restrictInput(input, allowedPattern) {
+            if (!input) return;
+
+            input.addEventListener('input', function () {
+                this.value = normalizeDigits(this.value)
+                    .replace(allowedPattern, '');
+            });
+        }
+
+        // موبایل: فقط اعداد انگلیسی
+        restrictInput(mobileInput, /[^0-9]/g);
+
+        // تلفن ثابت: اعداد و علائم مجاز
+        restrictInput(landlineInput, /[^0-9+\-()\s]/g);
+    </script>
 }

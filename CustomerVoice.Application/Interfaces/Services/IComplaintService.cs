@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CustomerVoice.Application.DTOs.Complaints;
-using CustomerVoice.Application.DTOs.Complaints;
+
 
 namespace CustomerVoice.Application.Interfaces.Services
 {
