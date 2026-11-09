@@ -139,9 +139,15 @@
 
 <div class="container complaint-create-page">
 
-    <div class="complaint-header">
-        <h2>ثبت شکایت</h2>
-        <p>لطفاً اطلاعات زیر را با دقت تکمیل کنید.</p>
+    <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-3 mb-4">
+        <h2 class="mb-0">ثبت شکایت</h2>
+
+        <a asp-controller="Home"
+           asp-action="Index"
+           class="btn btn-outline-secondary text-nowrap">
+            <i class="bi bi-house-door"></i>
+            بازگشت به صفحه اصلی
+        </a>
     </div>
 
     <div class="complaint-card">
@@ -275,10 +281,12 @@
                 </div>
             </div>
 
-            <div class="complaint-actions">
-                <button type="submit" class="btn btn-submit-complaint">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+                <button type="submit" class="btn btn-primary">
                     ثبت شکایت
                 </button>
+
+              
             </div>
 
         </form>

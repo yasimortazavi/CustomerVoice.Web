@@ -26,15 +26,12 @@ namespace CustomerVoice.Application.Interfaces.Services
 
 
         Task<ComplaintPagedResultDto> GetPagedAsync(
-            string? search,
-            int? projectId,
-            int? serviceTypeId,
-            string? status,
-            DateTime? fromDate,
-            DateTime? toDate,
-            int pageNumber,
-            int pageSize,
-            CancellationToken cancellationToken = default);
-
+     string? search,
+     int? projectId,
+     int? serviceTypeId,
+     string? status,
+     int pageNumber,
+     int pageSize,
+     CancellationToken cancellationToken = default);
     }
 }

@@ -169,15 +169,13 @@ namespace CustomerVoice.Application.Services
         }
 
         public async Task<ComplaintPagedResultDto> GetPagedAsync(
-                        string? search,
-                        int? projectId,
-                        int? serviceTypeId,
-                        string? status,
-                        DateTime? fromDate,
-                        DateTime? toDate,
-                        int pageNumber,
-                        int pageSize,
-                        CancellationToken cancellationToken = default)
+     string? search,
+     int? projectId,
+     int? serviceTypeId,
+     string? status,
+     int pageNumber,
+     int pageSize,
+     CancellationToken cancellationToken = default)
         {
             pageNumber = Math.Max(1, pageNumber);
             pageSize = Math.Clamp(pageSize, 1, 100);
@@ -187,8 +185,6 @@ namespace CustomerVoice.Application.Services
                 projectId,
                 serviceTypeId,
                 status,
-                fromDate,
-                toDate,
                 pageNumber,
                 pageSize,
                 cancellationToken);

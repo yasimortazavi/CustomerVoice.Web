@@ -1,8 +1,38 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "سامانه ثبت و پیگیری شکایات";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container py-5" dir="rtl">
+    <div class="text-center mb-5">
+        <h1 class="display-5 fw-bold">سامانه ثبت و پیگیری شکایات</h1>
+        <p class="lead text-muted mt-3">
+            برای ثبت شکایت یا مشاهده شکایات ثبت ‌شده، یکی از گزینه‌های زیر را انتخاب کنید.
+        </p>
+    </div>
+
+    <div class="row justify-content-center g-4">
+        <div class="col-md-5">
+            <div class="card h-100 shadow-sm text-center p-4">
+                <h4 class="mb-3">ثبت شکایت جدید</h4>
+                <p class="text-muted">برای ثبت درخواست یا اعلام نارضایتی خود اقدام کنید.</p>
+                <a asp-controller="Complaints"
+                   asp-action="Create"
+                   class="btn btn-primary mt-auto">
+                    ثبت شکایت
+                </a>
+            </div>
+        </div>
+
+        <div class="col-md-5">
+            <div class="card h-100 shadow-sm text-center p-4">
+                <h4 class="mb-3">لیست شکایات</h4>
+                <p class="text-muted">مشاهده و بررسی شکایات ثبت‌ شده در سامانه.</p>
+                <a asp-controller="Complaints"
+                   asp-action="Index"
+                   class="btn btn-outline-primary mt-auto">
+                    لیست شکایات من
+                </a>
+            </div>
+        </div>
+    </div>
 </div>

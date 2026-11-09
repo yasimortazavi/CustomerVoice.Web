@@ -180,8 +180,6 @@ namespace CustomerVoice.Web.Controllers
                 model.ProjectId,
                 model.ServiceTypeId,
                 model.Status,
-                model.FromDate,
-                model.ToDate,
                 model.PageNumber,
                 model.PageSize,
                 cancellationToken);

@@ -43,8 +43,6 @@ namespace CustomerVoice.Infrastructure.Repositories
                         int? projectId,
                         int? serviceTypeId,
                         string? status,
-                        DateTime? fromDate,
-                        DateTime? toDate,
                         int pageNumber,
                         int pageSize,
                         CancellationToken cancellationToken = default)
@@ -76,11 +74,7 @@ namespace CustomerVoice.Infrastructure.Repositories
             if (!string.IsNullOrWhiteSpace(status))
                 query = query.Where(x => x.Status == status);
 
-            if (fromDate.HasValue)
-                query = query.Where(x => x.CreatedAt >= fromDate.Value);
-
-            if (toDate.HasValue)
-                query = query.Where(x => x.CreatedAt < toDate.Value.AddDays(1));
+         
 
             var totalCount = await query.CountAsync(cancellationToken);
 

@@ -21,12 +21,21 @@
                     <p>
                         لطفاً کد پیگیری را برای بررسی وضعیت شکایت نزد خود نگه دارید.
                     </p>
+                    <div class="d-flex justify-content-center align-items-center flex-wrap gap-3 mt-4" dir="rtl">
+                        <a asp-controller="Complaints"
+                           asp-action="Create"
+                           class="btn btn-primary">
+                            <i class="bi bi-plus-circle"></i>
+                            ثبت شکایت جدید
+                        </a>
 
-                    <a asp-controller="Complaints"
-                       asp-action="Create"
-                       class="btn btn-primary mt-3">
-                        ثبت شکایت جدید
-                    </a>
+                        <a asp-controller="Home"
+                           asp-action="Index"
+                           class="btn btn-outline-secondary">
+                            <i class="bi bi-house-door"></i>
+                            بازگشت به صفحه اصلی
+                        </a>
+                    </div>
 
                 </div>
             </div>
